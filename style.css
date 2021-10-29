@@ -1,0 +1,100 @@
+.cube {
+  width:  4.4vw;
+  height:  4.4vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  margin: -2.2vw;
+}
+
+.cube__face {
+  width: 4.4vw;
+  height: 4.4vw;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Reem Kufi', sans-serif;
+  font-size: 0.9vw;
+  font-weight: 800;
+  color: white;
+  background: white;
+  transition: all 1.2s;
+}
+
+/* Mise en place de chaque élément "face" de façon à former un cube */
+.cube__face--front  { transform: rotateY(  0deg) translateZ(2.2vw); }
+.cube__face--right  { transform: rotateY( 90deg) translateZ(2.2vw); }
+.cube__face--back   { transform: rotateY(180deg) translateZ(2.2vw); }
+.cube__face--left   { transform: rotateY(-90deg) translateZ(2.2vw); }
+.cube__face--top    { transform: rotateX( 90deg) translateZ(2.2vw);}
+.cube__face--bottom { transform: rotateX(-90deg) translateZ(2.2vw); }
+
+.cube__face img {
+  width:  3.8vw;
+  min-width: 50px;
+  height:  3.8vw;
+  min-height: 50px;
+  filter: invert(7%) sepia(9%) saturate(6395%) hue-rotate(215deg) brightness(92%) contrast(91%);
+}
+
+/* Mise en forme de l'élément qui active l'animation au survol*/
+.elementToHover {
+  z-index: 1000;
+  width:  4.4vw;
+  height:  4.4vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -2.2vw;
+  cursor: pointer;
+}
+
+.elementToHover:hover {
+  background-color: lightgray;
+}
+
+/* Mise en place de chaque cube et de son "elementToHover" de façon à former un cercle.
+   La première rotation modifie l'axe de l'élément qui subit ensuite une translation sur l'axe Y puis est remis à l'endroit grâce à une seconde rotation. */
+.htmlCube,       .elementToHover--htmlCube        { transform: rotate(0deg)   translateY(-14vw) rotate(0deg)    }
+.cssCube,        .elementToHover--cssCube         { transform: rotate(40deg)  translateY(-14vw) rotate(-40deg)  }
+.sassCube,       .elementToHover--sassCube        { transform: rotate(80deg)  translateY(-14vw) rotate(-80deg)  }
+.javascriptCube, .elementToHover--javascriptCube  { transform: rotate(120deg) translateY(-14vw) rotate(-120deg) }
+.vuejsCube,      .elementToHover--vuejsCube       { transform: rotate(160deg) translateY(-14vw) rotate(-160deg) }
+.mysqlCube,      .elementToHover--mysqlCube       { transform: rotate(200deg) translateY(-14vw) rotate(-200deg) }
+.nodejsCube,     .elementToHover--nodejsCube      { transform: rotate(240deg) translateY(-14vw) rotate(-240deg) }
+.expressCube,    .elementToHover--expressCube     { transform: rotate(280deg) translateY(-14vw) rotate(-280deg) }
+.sequelizeCube,  .elementToHover--sequelizeCube   { transform: rotate(320deg) translateY(-14vw) rotate(-320deg) }
+
+/* Définition des animations qui surviennent au survol de l'élément déclencheur */
+.elementToHover--htmlCube:hover       ~ .htmlCube,
+.elementToHover--cssCube:hover        ~ .cssCube,
+.elementToHover--sassCube:hover       ~ .sassCube,
+.elementToHover--javascriptCube:hover ~ .javascriptCube,
+.elementToHover--vuejsCube:hover      ~ .vuejsCube,
+.elementToHover--mysqlCube:hover      ~ .mysqlCube,
+.elementToHover--nodejsCube:hover     ~ .nodejsCube,
+.elementToHover--expressCube:hover    ~ .expressCube,
+.elementToHover--sequelizeCube:hover  ~ .sequelizeCube {
+  animation: goCenter 1s forwards, spin 7s 0.9s infinite;
+}
+
+/* Définition de l'animation qui permet de faire revenir le cube à sa place d'origine lorsque l'élément déclencheur n'est plus survolé */
+.cube  { 
+  animation: returnToDefaultPosition  1s forwards 
+}
+
+@keyframes goCenter {
+  100% { transform: rotate(0deg) translateY(0vw) rotate(0deg) rotateX(380deg) rotateY(420deg) }
+}
+
+@keyframes spin {
+  from { transform:rotateX(380deg) rotateY(420deg)  }
+  to   { transform: rotateX(740deg) rotateY(780deg) }
+}
+
+@keyframes returnToDefaultPosition {
+  from { transform: rotate(0deg) translate(0, 0vw) rotate(0deg) rotateX(380deg) rotateY(420deg) }
+  to   { transform: default }
+}
